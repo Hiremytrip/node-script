@@ -16,6 +16,11 @@
     "express-router": "^0.0.1",
     "mongodb": "^6.6.2",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.7",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

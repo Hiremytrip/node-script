@@ -3,16 +3,18 @@ var app = express();
 var morgan = require('morgan');
 var routes = require('./routes/route'); 
 var cors = require('cors');
-var bodyParser = require('body-parser');
-app.use(cors());
+require('dotenv').config();
+// var bodyParser = require('body-parser');
+var { connectDB } = require('./config/db');
 
-// format logger format
+
+console.log(process.env);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 app.use(morgan('common'));
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-  
 app.get('/', function(req, res) {
     res.send('Welcome to the homepage');
 });
@@ -20,25 +22,10 @@ app.get('/', function(req, res) {
 routes(app);
 
 // connect database mysql
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'analytics'
-});
+connectDB();
 
-connection.connect((err) => {
-    if (err) {
-        console.log('Error on connecting');
-    } else {
-        console.log('Connected to database');
-    }
-});
-
-app.set('connection', connection);
 app.set('view engine', 'ejs');
-
+app.set('views', './views');
 var port = process.env.PORT || 3000;
 
 app.listen(port, (err) => {
