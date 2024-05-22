@@ -8,7 +8,6 @@ require('dotenv').config();
 var { connectDB } = require('./config/db');
 
 
-console.log(process.env);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
