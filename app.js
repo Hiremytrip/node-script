@@ -23,8 +23,6 @@ routes(app);
 // connect database mysql
 connectDB();
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
 var port = process.env.PORT || 3000;
 
 app.listen(port, (err) => {

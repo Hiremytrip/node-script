@@ -1,3 +1,4 @@
+const e = require('cors');
 var sequelize = require('../../config/db');
 const Click = require('../../models/Click');
 
@@ -17,4 +18,12 @@ exports.trackClicks = async function (req, res) {
         console.error('Error inserting data:', error);
         res.status(500).json({ error: error.message });
     }
+}
+
+exports.getClicks = function (req, res) {
+    Click.findAll().then(clicks => {
+        res.status(200).json(clicks);
+    }).catch(err => {
+        res.status(500).json({ error: err.message });
+    })
 }
