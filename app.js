@@ -11,8 +11,12 @@ var { connectDB } = require('./config/db');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// setup react build folder
+
 app.use(cors());
 app.use(morgan('common'));
+var path = require('path');
+
 
 app.get('/', function(req, res) {
     res.send('Welcome to the homepage');
@@ -22,6 +26,13 @@ routes(app);
 
 // connect database mysql
 connectDB();
+
+// app.use(express.static(path.join(__dirname, 'build')));
+
+// Handles any requests that don't match the ones above
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '/build/index.html'));
+// });
 
 var port = process.env.PORT || 3000;
 

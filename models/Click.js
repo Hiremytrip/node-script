@@ -28,6 +28,18 @@ const Click = sequelize.define('Click', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    clicks: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    fullscreen: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    action: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 }, {
     tableName: 'clicks',
     // Other model options
