@@ -1,6 +1,8 @@
-const e = require('cors');
+const cors = require('cors');
 var sequelize = require('../../config/db');
+const { Op } = require('sequelize'); // Correctly import Op from sequelize
 const Click = require('../../models/Click');
+const moment = require('moment');
 
 exports.trackClicks = async function (req, res) {
     try {
@@ -10,7 +12,7 @@ exports.trackClicks = async function (req, res) {
         if (existingClick) {
             existingClick.clicks++;
             existingClick.fullscreen = fullscreen ? 1 : 0;
-            existingClick.action = action;
+            existingClick.action = action
             await existingClick.save();
             return res.status(200).json(existingClick);
         } else {
@@ -36,7 +38,19 @@ exports.trackClicks = async function (req, res) {
 }
 
 exports.getClicks = function (req, res) {
-    Click.findAll().then(clicks => {
+    var data = req.body;
+    var startDate = moment().startOf('month').toDate();
+    var endDate = moment().toDate();
+    if (data.startDate && data.endDate) {
+        startDate = data.startDate;
+        endDate = data.endDate;
+    }
+
+    console.log(startDate, endDate);
+    // sort by create date in desc order
+
+    Click.findAll({ where: { createdAt: { [Op.between]: [startDate, endDate] } }, order: [['createdAt', 'DESC']] }).then(clicks => {
+        console.log("Data",clicks.length);
         res.status(200).json(clicks);
     }).catch(err => {
         res.status(500).json({ error: err.message });

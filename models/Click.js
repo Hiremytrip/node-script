@@ -34,11 +34,11 @@ const Click = sequelize.define('Click', {
     },
     fullscreen: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: true
     },
     action: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'clicks',

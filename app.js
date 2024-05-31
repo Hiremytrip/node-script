@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // setup react build folder
 
 app.use(cors());
-app.use(morgan('common'));
+app.use(morgan('dev'));
 var path = require('path');
 
 
